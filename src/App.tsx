@@ -9,27 +9,32 @@ interface Memo {
 }
 
 const MemoApp = () => {
+  // ローカルストレージからメモを取得
   const getFromLocalStorage = (): Memo[] => {
     const memos = localStorage.getItem("memos");
     return memos ? JSON.parse(memos) : [];
   };
 
+  // ローカルストレージにメモを保存
   const saveToLocalStorage = (memos: Memo[]) => {
     localStorage.setItem("memos", JSON.stringify(memos));
   };
-
+ // メモの一覧を管理するstate
   const [memos, setMemos] = useState<Memo[]>(getFromLocalStorage());
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  // メモのタイトルを変更する関数
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
+  // メモの内容を変更する関数
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
-
+ 
+  // メモを追加する関数
   const handleAddMemo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newMemo: Memo = {
@@ -43,13 +48,15 @@ const MemoApp = () => {
     setTitle("");
     setContent("");
   };
-
+ 
+  // メモを削除する関数
   const handleDeleteMemo = (id: number) => {
     const filteredMemos = memos.filter((memo) => memo.id !== id);
     setMemos(filteredMemos);
     saveToLocalStorage(filteredMemos);
   };
 
+  // メモを編集する関数
   const handleEditMemo = (id: number, newMemo: Memo) => {
     const filteredMemos = memos.filter((memo) => memo.id !== id);
     const newMemos = [...filteredMemos, newMemo];
