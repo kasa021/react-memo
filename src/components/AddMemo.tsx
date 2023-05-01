@@ -16,7 +16,6 @@ interface Props {
 }
 
 const AddMemo: React.FC<Props> = ({
-    memos,
     handleAddMemo,
     handleTitleChange,
     handleContentChange,
@@ -45,14 +44,6 @@ const AddMemo: React.FC<Props> = ({
                 </div>
                 <button type="submit">追加</button>
             </form>
-            <ul>
-                {memos.map((memo) => (
-                    <li key={memo.id}>
-                        <h2>{memo.title}</h2>
-                        <p>{memo.content}</p>
-                    </li>
-                ))}
-            </ul>
         </div>
     );
 };

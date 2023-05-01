@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DeleteMemo from './components/DeleteMemo';
+import MemoList from './components/MemoList';
 import AddMemo from './components/AddMemo';
 
 
@@ -39,11 +39,18 @@ const MemoApp = () => {
     setMemos(filteredMemos);
   };
 
+  const handleEditMemo = (id: number,newMemo: Memo) => {
+    const filteredMemos = memos.filter((memo) => memo.id !== id);
+    const newMemos = [...filteredMemos,newMemo];
+    setMemos(newMemos);
+  };
+
+
   return (
     <div>
       <h1>メモ帳アプリ</h1>
       <AddMemo memos={memos} handleAddMemo={handleAddMemo} handleTitleChange={handleTitleChange} handleContentChange={handleContentChange} title={title} content={content} />
-      <DeleteMemo memos={memos} handleDeleteMemo={handleDeleteMemo} />
+      <MemoList memos={memos} handleDeleteMemo={handleDeleteMemo} handleEditMemo={handleEditMemo} />
     </div>
   );
 };
